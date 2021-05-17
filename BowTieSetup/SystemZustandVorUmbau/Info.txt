@@ -1,0 +1,4 @@
+mit 3dB attenuator:
+
+-wiederstand receiver: 630 ohm
+-16 mw im freistrahl delayline
