@@ -5,8 +5,8 @@ Created on Wed Jul 10 18:53:33 2019
 @author: JanO
 """
 
-from THz.importing import import_tds_gui, selectloc
-from THz.preprocessing import rotate 
+from importing import import_tds_gui, selectloc
+from preprocessing import rotate
 import numpy as np
 import re, os
 
