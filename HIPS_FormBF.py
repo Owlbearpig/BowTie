@@ -13,14 +13,19 @@ def load_material_data(path):
     alpha_key = [key for key in df.keys() if 'alpha' in key][0]
     alpha_err_key = [key for key in df.keys() if 'delta_A' in key][0]
     ref_ind_err_key = [key for key in df.keys() if "delta_N" in key][0]
+    epsilon_r_key = [key for key in df.keys() if "epsilon_r" in key][0]
+    epsilon_i_key = [key for key in df.keys() if "epsilon_i" in key][0]
 
     frequencies = np.array(df[freq_dict_key])
     ref_ind = np.array(df[ref_ind_key])
     alpha = np.array(df[alpha_key])
     alha_err = np.array(df[alpha_err_key])
     ref_ind_err = np.array(df[ref_ind_err_key])
+    eps_r = np.array(df[epsilon_r_key])
+    eps_i = np.array(df[epsilon_i_key])
 
-    data = {'freq': frequencies, 'ref_ind': ref_ind, 'alpha': alpha, 'alpha_err': alha_err, 'ref_ind_err': ref_ind_err}
+    data = {'freq': frequencies, 'ref_ind': ref_ind, 'alpha': alpha, 'alpha_err': alha_err, 'ref_ind_err': ref_ind_err,
+            'eps_r': eps_r, 'eps_i': eps_i}
 
     return data
 
