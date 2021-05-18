@@ -24,7 +24,7 @@ def load_material_data(path):
 
     return data
 
-TeralyzerResults = ['HHI HIPS TeraLyzer/HIPS MUT1 HHI_D=2054.csv', 'BT HIPS TeraLyzer/HIPS MUT1 2mm BT_D=2130.csv']
+TeralyzerResults = ['HHI HIPS TeraLyzer/HIPS MUT1 HHI_D=2054.csv', 'BT HIPS TeraLyzer/HIPS MUT1 2mm BT_D=2130.csv', 'BT HIPS TeraLyzer/HIPS MUT1 BT closer2emitter_D=2090.csv']
 
 df = pandas.read_csv(Path('DavidNVA/MUT 1-1.csv'))
 

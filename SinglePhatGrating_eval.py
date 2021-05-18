@@ -16,26 +16,50 @@ def fft(t, y):
 
     return freqs[1:], Y[1:]
 
-datapath = Path('singlegratingPhat')
+datapath = Path('singlegratingPhatCorrectAngles')
 
-# find result files
-files = [os.path.join(root, name)
-               for root, dirs, files in os.walk(datapath)
-               for name in files
-               if name.endswith('.txt')]
 
-for i, file in enumerate(files):
+datafiles = []
+for root, dirs, files in os.walk(datapath):
+    if 'flipped' in root:
+        continue
+    for name in files:
+        if name.endswith('.txt'):
+            datafiles.append(os.path.join(root, name))
+
+for i, file in enumerate(datafiles):
+    data = np.loadtxt(file)
+    t, y = data[:, 0], data[:, 1]
+    freqs, Y = fft(t, y)
+    if 'ref' in str(file):
+        ref = Y
+
+for i, file in enumerate(datafiles):
     data = np.loadtxt(file)
     t, y = data[:,0], data[:,1]
     freqs, Y = fft(t, y)
-    minf, maxf = np.argmin(np.abs(freqs-0.15)), np.argmin(np.abs(freqs-0.25))
-    print(file, sum(np.abs(Y[minf:maxf])))
-    plt.plot(freqs, np.abs(Y), label=str(file))
+    plt.plot(t, y, label=file)
 
-plt.xlim((0, 1))
+plt.legend()
+plt.xlabel('Amplitude')
+plt.ylabel('Time (ps)')
+plt.show()
+
+for i, file in enumerate(datafiles):
+    #if 'Ref' not in str(file):
+    #    continue
+    data = np.loadtxt(file)
+    t, y = data[:,0], data[:,1]
+    freqs, Y = fft(t, y)
+    #minf, maxf = np.argmin(np.abs(freqs-0.15)), np.argmin(np.abs(freqs-0.25))
+    #print(file, sum(np.abs(Y[minf:maxf])))
+    #print(file, np.argmin(y), np.argmax(y))
+    plt.plot(freqs, -20*np.log10(np.abs(Y)/np.abs(ref)), label=str(file))
+
+#plt.xlim((0, 1))
 plt.legend()
 plt.xlabel('Frequency (THz)')
-plt.ylabel('')
+plt.ylabel('Amplitude')
 plt.show()
 
 
