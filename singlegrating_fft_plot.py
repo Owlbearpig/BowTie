@@ -18,7 +18,6 @@ def fft(t, y):
 
 datapath = Path('singlegratingPhatCorrectAngles')
 
-
 datafiles = []
 for root, dirs, files in os.walk(datapath):
     if 'flipped' in root:
@@ -56,7 +55,7 @@ for i, file in enumerate(datafiles):
     #print(file, np.argmin(y), np.argmax(y))
     plt.plot(freqs, -20*np.log10(np.abs(Y)/np.abs(ref)), label=str(file))
 
-#plt.xlim((0, 1))
+plt.xlim((0, 1))
 plt.legend()
 plt.xlabel('Frequency (THz)')
 plt.ylabel('Amplitude')
