@@ -146,7 +146,7 @@ for resultfile in resultfiles:
 
 # plot calculated fbf
 HIPS_MUT1_TL_RES_PATH = Path('BT HIPS TeraLyzer/HIPS MUT1 BT closer2emitter_D=2090.csv')
-frequencies, n_s, n_p, _, _ = fbf_from_tl(HIPS_MUT1_TL_RES_PATH, a=500, b=500)
+frequencies, n_s, n_p, _, _ = fbf_from_tl(HIPS_MUT1_TL_RES_PATH, a=650, b=500)
 plt.plot(frequencies*10**-12, n_s, label='n_s')
 plt.plot(frequencies*10**-12, n_p, label='n_p')
 
