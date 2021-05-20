@@ -4,6 +4,11 @@ from pathlib import Path
 from numpy import sqrt
 import matplotlib.pyplot as plt
 import os
+import pandas as pd
+
+def export_csv(data, path):
+    df = pd.DataFrame(data=data)
+    df.to_csv(path)
 
 def load_material_data(path):
     df = pandas.read_csv(path)
@@ -40,6 +45,8 @@ n_MUT1_nva = sqrt(np.abs(eps_mat) + eps_mat.real) / sqrt(2)
 
 plt.plot(frequencies, n_MUT1_nva, label='David NVA')
 for teralyzer_result in TeralyzerResults:
+    if '2130' in str(teralyzer_result):
+        continue
     data = load_material_data(teralyzer_result)
     plt.plot(data['freq'], data['ref_ind'], label=str(teralyzer_result))
 

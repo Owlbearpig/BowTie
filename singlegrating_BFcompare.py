@@ -131,7 +131,7 @@ base = Path('singlegratingSlimcorrect/tl_result')
 resultfiles = [os.path.join(root, name)
                for root, dirs, files in os.walk(base)
                for name in files
-               if name.endswith('.csv')]
+               if name.endswith('.csv') and '2_D' not in str(name)]
 
 for resultfile in resultfiles:
     tl_data = load_material_data(resultfile)
