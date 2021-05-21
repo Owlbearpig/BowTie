@@ -51,13 +51,13 @@ def load_material_data(path):
     return data
 
 
-base = Path('singlegratingSlimcorrect/teralyzerResult')
+base = Path('singlegratingPhatCorrectAngles/tl_result')
 
 # find result files
 resultfiles = [os.path.join(root, name)
                for root, dirs, files in os.walk(base)
                for name in files
-               if name.endswith('.csv')]
+               if name.endswith('.csv') and '7900' not in str(name)]
 
 for resultfile in resultfiles:
     tl_data = load_material_data(resultfile)
@@ -72,13 +72,16 @@ plt.show()
 
 fig = plt.figure()
 
+data_export = {'freq': freq}
 for resultfile in resultfiles:
     tl_data = load_material_data(resultfile)
     freq, ref_ind, dn = tl_data['freq'], tl_data['ref_ind'], tl_data['ref_ind_err']
-
+    deg = str(resultfile).split(' ')[-1].split('_')[0]
     plt.plot(freq*10**-12, ref_ind, label=str(resultfile))
     plt.fill_between(freq*10**-12, ref_ind - dn, ref_ind + dn, alpha=0.5)
+    data_export[deg] = ref_ind
 
+export_csv(data_export, 'singlegratingPhat_measured_ri.csv')
 plt.legend()
 plt.xlabel('Frequency (THz)')
 plt.ylabel('Refractive index')
