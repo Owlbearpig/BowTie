@@ -17,7 +17,7 @@ def fft(t, y):
 
     return freqs[1:], Y[1:]
 
-datapath = Path('HIPS MUT1 d2mm')
+datapath = Path('Al2O3_1_re')
 
 datafiles = []
 for root, dirs, files in os.walk(datapath):
@@ -35,14 +35,19 @@ for i, file in enumerate(datafiles):
         ref = Y
 
 for i, file in enumerate(datafiles):
-    data = np.loadtxt(file)
-    t, y = data[:,0], data[:,1]
-    freqs, Y = fft(t, y)
-    plt.plot(t, y, label=file)
+    if 'ref' in str(file):
+        data = np.loadtxt(file)
+        t, y = data[:,0], data[:,1]
+        freqs, Y = fft(t, y - np.mean(y))
+        plt.plot(t, y, label=file)
+        export_csv({'t': t, 'y': y-np.mean(y)}, 'ref_HHI_example.csv')
+        Y = 20 * np.log10(np.abs(Y)) - max(20 * np.log10(np.abs(Y)))
+        export_csv({'freq': freqs, 'Y': Y}, 'ref_HHI_example_fft.csv')
+        break
 
 plt.legend()
-plt.xlabel('Amplitude')
-plt.ylabel('Time (ps)')
+plt.ylabel('Amplitude')
+plt.xlabel('Time (ps)')
 plt.show()
 
 for i, file in enumerate(datafiles):
@@ -50,11 +55,14 @@ for i, file in enumerate(datafiles):
     #    continue
     data = np.loadtxt(file)
     t, y = data[:,0], data[:,1]
-    freqs, Y = fft(t, y)
+    freqs, Y = fft(t, y-np.mean(y))
     #minf, maxf = np.argmin(np.abs(freqs-0.15)), np.argmin(np.abs(freqs-0.25))
     #print(file, sum(np.abs(Y[minf:maxf])))
     #print(file, np.argmin(y), np.argmax(y))
-    plt.plot(freqs, 10*np.log10(np.abs(Y)), label=str(file))
+    Y = 20 * np.log10(np.abs(Y)) - max(20 * np.log10(np.abs(Y)))
+    plt.plot(freqs, Y, label=str(file))
+
+    break
 
 plt.xlim((0, 4))
 plt.legend()
