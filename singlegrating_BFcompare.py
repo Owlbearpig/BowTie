@@ -141,14 +141,18 @@ for resultfile in resultfiles:
     if ' 0deg' in resultfile:
         freq_0deg, ref_ind_0deg = tl_data['freq'], tl_data['ref_ind']
 
-    plt.plot(freq*10**-12, ref_ind, label=str(resultfile))
-    plt.fill_between(freq*10**-12, ref_ind - dn, ref_ind + dn, alpha=0.5)
+    #plt.plot(freq*10**-12, ref_ind, label=str(resultfile))
+    #plt.fill_between(freq*10**-12, ref_ind - dn, ref_ind + dn, alpha=0.5)
 
 # plot calculated fbf
 HIPS_MUT1_TL_RES_PATH = Path('BT HIPS TeraLyzer/HIPS MUT1 BT closer2emitter_D=2090.csv')
-frequencies, n_s, n_p, k_s, k_p= fbf_from_tl(HIPS_MUT1_TL_RES_PATH, a=631, b=460)
+a, b = 400, 50
+frequencies, n_s, n_p, k_s, k_p= fbf_from_tl(HIPS_MUT1_TL_RES_PATH, a=a, b=b)
+plt.title(f'$a={a},\ b={b}$')
 plt.plot(frequencies*10**-12, n_s, label='n_s')
 plt.plot(frequencies*10**-12, n_p, label='n_p')
+plt.plot(frequencies*10**-12, n_p-n_s)
+print(np.mean(n_p-n_s))
 #export_csv({'freq': frequencies.flatten(), 'n_s': n_s.flatten(), 'n_p': n_p.flatten()}, 'singlegratingSlim_birefringence_calc.csv')
 
 plt.legend()
