@@ -17,32 +17,24 @@ def fft(t, y):
 
     return freqs[1:], Y[1:]
 
-datapath = Path('Al2O3_1_re')
+datapath = Path('2mm MUT1 bowtie flipped')
 
 datafiles = []
 for root, dirs, files in os.walk(datapath):
-    if 'flipped' in root:
-        continue
     for name in files:
         if name.endswith('.txt'):
             datafiles.append(os.path.join(root, name))
 
 for i, file in enumerate(datafiles):
-    data = np.loadtxt(file)
-    t, y = data[:, 0], data[:, 1]
-    freqs, Y = fft(t, y)
-    if 'ref' in str(file):
-        ref = Y
-
-for i, file in enumerate(datafiles):
-    if 'ref' in str(file):
+    if 'Ref' in str(file):
         data = np.loadtxt(file)
         t, y = data[:,0], data[:,1]
         freqs, Y = fft(t, y-np.mean(y))
         plt.plot(t, y, label=file)
-        #export_csv({'t': t, 'y': y-np.mean(y)}, 'ref_HHI_example.csv')
+        export_csv({'t': t, 'y': y-np.mean(y)}, 'ref_BT_example.csv')
         Y = 20 * np.log10(np.abs(Y)) - max(20 * np.log10(np.abs(Y)))
-        #export_csv({'freq': freqs, 'Y': Y}, 'ref_HHI_example_fft.csv')
+        freqs = -1*freqs
+        export_csv({'freq': freqs, 'Y': Y}, 'ref_BT_example_fft.csv')
         break
 
 plt.legend()
@@ -51,11 +43,12 @@ plt.xlabel('Time (ps)')
 plt.show()
 
 for i, file in enumerate(datafiles):
-    #if 'Ref' not in str(file):
-    #    continue
+    if 'Ref' not in str(file):
+        continue
     data = np.loadtxt(file)
     t, y = data[:,0], data[:,1]
     freqs, Y = fft(t, y-np.mean(y))
+    freqs = -1*freqs
     #minf, maxf = np.argmin(np.abs(freqs-0.15)), np.argmin(np.abs(freqs-0.25))
     #print(file, sum(np.abs(Y[minf:maxf])))
     #print(file, np.argmin(y), np.argmax(y))
@@ -64,7 +57,7 @@ for i, file in enumerate(datafiles):
 
     break
 
-plt.xlim((0, 5))
+plt.xlim((0, 1.5))
 plt.legend()
 plt.xlabel('Frequency (THz)')
 plt.ylabel('Amplitude')
