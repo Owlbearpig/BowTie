@@ -125,7 +125,7 @@ def fbf_from_tl(tl_file_path, a=500, b=500, f_min=0, f_max=np.inf, resolution=1)
 fig = plt.figure()
 
 # plot real data
-base = Path('singlegratingSlimcorrect/tl_result')
+base = Path('SingleGratings/singlegratingSlimcorrect/tl_result')
 
 # find result files
 resultfiles = [os.path.join(root, name)

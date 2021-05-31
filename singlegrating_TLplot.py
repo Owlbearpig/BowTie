@@ -51,7 +51,7 @@ def load_material_data(path):
     return data
 
 
-base = Path('singlegratingPhatCorrectAngles/tl_result')
+base = Path('SingleGratings/singlegratingPhatCorrectAngles/tl_result')
 
 # find result files
 resultfiles = [os.path.join(root, name)

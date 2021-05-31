@@ -16,7 +16,7 @@ def fft(t, y):
 
     return freqs[1:], Y[1:]
 
-datapath = Path('singlegratingPhatCorrectAngles')
+datapath = Path('SingleGratings/singlegratingPhatCorrectAngles')
 
 datafiles = []
 for root, dirs, files in os.walk(datapath):

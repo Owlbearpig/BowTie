@@ -44,6 +44,31 @@ def read_tlcsv_file(path):
 
     return data
 
+def fbf_from_tl(tl_file_path, a=500, b=500, f_min=0, f_max=np.inf, resolution=1):
+    tl_data = read_tlcsv_file(tl_file_path)
+
+    frequencies = tl_data['freq']
+
+    data_slice = np.where((frequencies > f_min) &
+                          (frequencies < f_max))
+    data_slice = data_slice[0][::resolution]
+
+    m = len(data_slice)
+
+    frequencies = frequencies[data_slice].reshape(m, 1)
+
+    wls = (c0 / frequencies) * m_um  # wl in um
+
+    eps1_r = tl_data['eps_r'][data_slice]
+    eps1_i = tl_data['eps_i'][data_slice]
+
+    eps1 = (eps1_r + eps1_i * 1j).reshape(m, 1)  # a, material
+    eps2 = np.ones_like(eps1)  # b, air gaps
+
+    n_s, n_p, k_s, k_p = form_birefringence((a, b), wls, eps1, eps2)
+
+    return frequencies, n_s, n_p, k_s, k_p
+
 def load_material_data(mat_name, f_min=0, f_max=np.inf, resolution=1):
     mat_paths = {
         'ceramic_slow': Path('material_data/Sample1_000deg_1825ps_0m-2Grad_D=3000.csv'),
