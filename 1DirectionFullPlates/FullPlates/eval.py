@@ -5,7 +5,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 datapath = Path('/media/alex/sda2/ProjectsOverflow/BowTie/1DirectionFullPlates/FullPlates')
-#datapath = Path('E:\CURPROJECT\BowTie\1DirectionFullPlates\FullPlatesFocus_offsetcorrected\FullPlatesFocus\tlRes')
+#datapath = Path(r'E:\CURPROJECT\BowTie\1DirectionFullPlates\FullPlatesFocus_offsetcorrected\FullPlatesFocus\tlRes')
+datapath = Path(r'E:\CURPROJECT\BowTie\1DirectionFullPlates\FullPlates')
 
 samplenames = ['MUT1', 'S2', 'S3']
 plot_labels = {'MUT1': 'ZigZag pattern, 2 mm', 'S2': 'Same direction, 2 mm', 'S3': 'Same direction, 8 mm'}
@@ -54,7 +55,12 @@ for i, samplename in enumerate(samplenames):
 
 export_csv(export_data, 'fullplates_bf.csv')
 
+export_data['freq'] = freq
+export_data[f'bf_{samplename}'] = ref_ind_0deg - ref_ind_90deg
+
 #plt.figure('Ref. ind')
+
+#export_csv(export_data, 'FullPlates.csv')
 
 plt.figure('Birefringence')
 plt.xlim((60, 350))

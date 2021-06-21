@@ -3,8 +3,8 @@ import os
 from functions import read_tlcsv_file, fbf_from_tl
 import matplotlib.pyplot as plt
 
-datapath = Path('/media/alex/sda2/ProjectsOverflow/BowTie/1DirectionFullPlates/FullPlatesFocus_offsetcorrected/FullPlatesFocus/tlRes')
-#datapath = Path('E:\CURPROJECT\BowTie\1DirectionFullPlates\FullPlatesFocus_offsetcorrected\FullPlatesFocus\tlRes')
+#datapath = Path('/media/alex/sda2/ProjectsOverflow/BowTie/1DirectionFullPlates/FullPlatesFocus_offsetcorrected/FullPlatesFocus/tlRes')
+datapath = Path(r'E:\CURPROJECT\BowTie\1DirectionFullPlates\FullPlatesFocus_offsetcorrected\FullPlatesFocus\tlRes')
 
 samplenames = ['MUT1', 'S2', 'S3']
 

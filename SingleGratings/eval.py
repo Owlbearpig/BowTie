@@ -4,7 +4,7 @@ from functions import read_tlcsv_file, fbf_from_tl
 import matplotlib.pyplot as plt
 
 datapath = Path('/media/alex/sda2/ProjectsOverflow/BowTie/SingleGratings')
-#datapath = Path('E:\CURPROJECT\BowTie\SingleGratings')
+datapath = Path('E:\CURPROJECT\BowTie\SingleGratings')
 
 samplenames = ['StandingPrint', 'StandingV2', 'SingleGratingSlim', 'SinglegratingPhat', 'StandingNoFPV2']
 
@@ -44,7 +44,7 @@ plt.figure('Ref. ind')
 #plt.show()
 
 HIPS_MUT1_TL_RES_PATH = Path('/media/alex/sda2/ProjectsOverflow/BowTie/SingleGratings/HIPS MUT1 BT closer2emitter_D=2090.csv')
-#HIPS_MUT1_TL_RES_PATH = Path('E:\CURPROJECT\BowTie\SingleGratings/HIPS MUT1 BT closer2emitter_D=2090.csv')
+HIPS_MUT1_TL_RES_PATH = Path('E:\CURPROJECT\BowTie\SingleGratings/HIPS MUT1 BT closer2emitter_D=2090.csv')
 
 #a, b = 800, 550
 a, b = 750, 400
