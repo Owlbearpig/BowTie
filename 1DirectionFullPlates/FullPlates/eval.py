@@ -6,14 +6,17 @@ import numpy as np
 
 datapath = Path('/media/alex/sda2/ProjectsOverflow/BowTie/1DirectionFullPlates/FullPlates')
 #datapath = Path(r'E:\CURPROJECT\BowTie\1DirectionFullPlates\FullPlatesFocus_offsetcorrected\FullPlatesFocus\tlRes')
-datapath = Path(r'E:\CURPROJECT\BowTie\1DirectionFullPlates\FullPlates')
+#datapath = Path(r'E:\CURPROJECT\BowTie\1DirectionFullPlates\FullPlates')
 
-samplenames = ['MUT1', 'S2', 'S3']
-plot_labels = {'MUT1': 'ZigZag pattern, 2 mm', 'S2': 'Same direction, 2 mm', 'S3': 'Same direction, 8 mm'}
+samplenames = ['MUT1', 'S1', 'S2', 'S3']
+plot_labels = {'MUT1': 'ZigZag pattern, 2 mm', 'S2': 'Same direction, 2 mm', 'S3': 'Same direction, 8 mm', 'S1': 'S1'}
 
 datafiles = []
 for root, dirs, files in os.walk(datapath):
     for name in files:
+        if 'S1' in name and name.endswith('.csv'):
+            datafiles.append(os.path.join(root, name))
+            continue
         if name.endswith('.csv') and 'noFP' in str(name):
             datafiles.append(os.path.join(root, name))
 
@@ -53,7 +56,8 @@ for i, samplename in enumerate(samplenames):
 
     export_data[f'bf_{plot_labels[samplename]}'] = ref_ind_0deg-ref_ind_90deg
 
-export_csv(export_data, 'fullplates_bf.csv')
+
+#export_csv(export_data, 'fullplates_bf.csv')
 
 export_data['freq'] = freq
 export_data[f'bf_{samplename}'] = ref_ind_0deg - ref_ind_90deg
